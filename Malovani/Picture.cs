@@ -1,5 +1,4 @@
 ﻿using Malovani;
-using System.Windows.Forms;
 
 namespace WinFormsApp6
 {
@@ -23,7 +22,6 @@ namespace WinFormsApp6
                     if (orderedShapes[j].layer > orderedShapes[j + 1].layer)
                     {
                         Shape temp = orderedShapes[j];
-
                         orderedShapes[j] = orderedShapes[j + 1];
                         orderedShapes[j + 1] = temp;
                     }
@@ -45,7 +43,8 @@ namespace WinFormsApp6
             //    shape.Draw(g);
             //}
         }
-        public void CreateShape(Point p, Color color1, ShapeType type, int pen_width, bool fill, Color color2, bool grad, int layer)
+
+        public void CreateShape(Point p, Color color1, Color color2, ShapeType type, int pen_width, bool fill, bool grad, int layer)
         {
             Shape shape = new Shape(type, fill, layer)
             {

@@ -19,9 +19,12 @@ namespace Malovani
         public Form1()
         {
             InitializeComponent();
-
             this.HandleButtonColors();
+            this.InitLayer();
+        }
 
+        private void InitLayer()
+        {
             this.lb_layers.Items.Add("Layer " + this.layer_counter);
             this.lb_layers.SelectedIndex = 0;
             this.layer_counter++;
@@ -60,9 +63,7 @@ namespace Malovani
             if (this.lb_layers.Items.Count == 0)
             {
                 MessageBox.Show("You can't draw without a layer!\n A new layer has been created.");
-                this.lb_layers.Items.Add("Layer " + this.layer_counter);
-                this.lb_layers.SelectedIndex = 0;
-                this.layer_counter++;
+                this.InitLayer();
                 return;
             }
 
@@ -75,10 +76,10 @@ namespace Malovani
                         (
                             e.Location,
                             this.Color1,
+                            this.Color2,
                             ShapeType.Line,
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
-                            this.Color2,
                             this.cb_gradient.Checked,
                             active_layer
                         );
@@ -89,10 +90,10 @@ namespace Malovani
                         (
                             e.Location,
                             this.Color1,
+                            this.Color2,
                             ShapeType.Rectangle,
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
-                            this.Color2,
                             this.cb_gradient.Checked,
                             active_layer
                         );
@@ -103,10 +104,10 @@ namespace Malovani
                         (
                             e.Location,
                             this.Color1,
+                            this.Color2,
                             ShapeType.Ellipse,
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
-                            this.Color2,
                             this.cb_gradient.Checked,
                             active_layer
                         );
@@ -117,10 +118,10 @@ namespace Malovani
                         (
                             e.Location,
                             this.Color1,
+                            this.Color2,
                             ShapeType.Points,
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
-                            this.Color2,
                             this.cb_gradient.Checked,
                             active_layer
                         );
@@ -131,10 +132,10 @@ namespace Malovani
                         (
                             e.Location,
                             this.pictureBox1.BackColor,
+                            this.pictureBox1.BackColor,
                             ShapeType.Eraser,
                             this.textBoxCheck() * 5,
                             this.cb_fill.Checked,
-                            this.pictureBox1.BackColor,
                             this.cb_gradient.Checked,
                             active_layer
                         );
@@ -206,7 +207,7 @@ namespace Malovani
         private void lb_layers_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.active_layer = this.lb_layers.SelectedIndex;
-            this.pictureBox1.Refresh(); 
+            this.pictureBox1.Refresh();
         }
 
         private void b_remove_layer_Click(object sender, EventArgs e)
@@ -244,7 +245,7 @@ namespace Malovani
 
             if (selectedIndex >= 0 && selectedIndex < lb_layers.Items.Count)
             {
-                
+
                 if (up)
                 {
                     target_index = selectedIndex - 1;
@@ -290,8 +291,6 @@ namespace Malovani
             File file = new File();
 
             file.Show();
-
-            file.Owner = this;
         }
 
         private void b_swap_colors_Click(object sender, EventArgs e)
@@ -329,6 +328,16 @@ namespace Malovani
         private void b_body_Click(object sender, EventArgs e)
         {
             this.button_index = (int)ShapeType.Points;
+        }
+
+        private void b_rename_layer_Click(object sender, EventArgs e)
+        {
+            Rename r = new Rename();
+
+            if (r.ShowDialog() == DialogResult.OK)
+            {
+                this.lb_layers.Items[this.active_layer] = r.new_name;
+            }
         }
     }
 }

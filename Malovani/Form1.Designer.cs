@@ -51,6 +51,7 @@
             this.b_layer_down = new Button();
             this.b_file = new Button();
             this.b_swap_colors = new Button();
+            this.b_rename_layer = new Button();
             ((System.ComponentModel.ISupportInitialize)this.pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)this.pb_menu_bg).BeginInit();
             SuspendLayout();
@@ -258,9 +259,9 @@
             // 
             // b_file
             // 
-            this.b_file.Location = new Point(972, 19);
+            this.b_file.Location = new Point(950, 24);
             this.b_file.Name = "b_file";
-            this.b_file.Size = new Size(75, 23);
+            this.b_file.Size = new Size(95, 23);
             this.b_file.TabIndex = 21;
             this.b_file.Text = "File";
             this.b_file.UseVisualStyleBackColor = true;
@@ -276,11 +277,22 @@
             this.b_swap_colors.UseVisualStyleBackColor = true;
             this.b_swap_colors.Click += b_swap_colors_Click;
             // 
+            // b_rename_layer
+            // 
+            this.b_rename_layer.Location = new Point(950, 53);
+            this.b_rename_layer.Name = "b_rename_layer";
+            this.b_rename_layer.Size = new Size(95, 23);
+            this.b_rename_layer.TabIndex = 23;
+            this.b_rename_layer.Text = "Rename Layer";
+            this.b_rename_layer.UseVisualStyleBackColor = true;
+            this.b_rename_layer.Click += b_rename_layer_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1107, 622);
+            Controls.Add(this.b_rename_layer);
             Controls.Add(this.b_swap_colors);
             Controls.Add(this.b_file);
             Controls.Add(this.b_layer_down);
@@ -336,5 +348,6 @@
         private Button b_layer_down;
         private Button b_file;
         private Button b_swap_colors;
+        private Button b_rename_layer;
     }
 }

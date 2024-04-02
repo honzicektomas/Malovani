@@ -17,9 +17,9 @@ namespace Malovani
         public List<Point> Points { get; set; }
         
 
-        public Shape(ShapeType type, bool fill, int layer)
+        public Shape(ShapeType Type, bool fill, int layer)
         {
-            this.Type = type;
+            this.Type = Type;
             this.Points = new List<Point>();
             this.layer = layer;
         }
@@ -49,7 +49,7 @@ namespace Malovani
             int y = Math.Min(this.Start.Y, this.End.Y);
 
             Pen pen = new Pen(Color1, pen_width);
-            Brush brush = new SolidBrush(Color2);
+            Brush brush = new SolidBrush(Color1);
 
             LinearGradientBrush lgb = null;
 
