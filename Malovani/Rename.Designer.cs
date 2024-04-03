@@ -28,57 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tb_rename_layer = new TextBox();
-            this.b_ok = new Button();
-            this.b_cancel = new Button();
-            this.l_new_name = new Label();
+            tb_rename_layer = new TextBox();
+            b_ok = new Button();
+            b_cancel = new Button();
+            l_new_name = new Label();
             SuspendLayout();
             // 
             // tb_rename_layer
             // 
-            this.tb_rename_layer.Location = new Point(88, 54);
-            this.tb_rename_layer.Name = "tb_rename_layer";
-            this.tb_rename_layer.Size = new Size(100, 23);
-            this.tb_rename_layer.TabIndex = 0;
+            tb_rename_layer.Location = new Point(88, 54);
+            tb_rename_layer.Name = "tb_rename_layer";
+            tb_rename_layer.Size = new Size(100, 23);
+            tb_rename_layer.TabIndex = 0;
             // 
             // b_ok
             // 
-            this.b_ok.Location = new Point(62, 100);
-            this.b_ok.Name = "b_ok";
-            this.b_ok.Size = new Size(75, 23);
-            this.b_ok.TabIndex = 1;
-            this.b_ok.Text = "OK";
-            this.b_ok.UseVisualStyleBackColor = true;
-            this.b_ok.Click += b_ok_Click;
+            b_ok.Location = new Point(62, 100);
+            b_ok.Name = "b_ok";
+            b_ok.Size = new Size(75, 23);
+            b_ok.TabIndex = 1;
+            b_ok.Text = "OK";
+            b_ok.UseVisualStyleBackColor = true;
+            b_ok.Click += b_ok_Click;
             // 
             // b_cancel
             // 
-            this.b_cancel.Location = new Point(143, 100);
-            this.b_cancel.Name = "b_cancel";
-            this.b_cancel.Size = new Size(75, 23);
-            this.b_cancel.TabIndex = 2;
-            this.b_cancel.Text = "Cancel";
-            this.b_cancel.UseVisualStyleBackColor = true;
-            this.b_cancel.Click += b_cancel_Click;
+            b_cancel.Location = new Point(143, 100);
+            b_cancel.Name = "b_cancel";
+            b_cancel.Size = new Size(75, 23);
+            b_cancel.TabIndex = 2;
+            b_cancel.Text = "Cancel";
+            b_cancel.UseVisualStyleBackColor = true;
+            b_cancel.Click += b_cancel_Click;
             // 
             // l_new_name
             // 
-            this.l_new_name.AutoSize = true;
-            this.l_new_name.Location = new Point(88, 27);
-            this.l_new_name.Name = "l_new_name";
-            this.l_new_name.Size = new Size(92, 15);
-            this.l_new_name.TabIndex = 3;
-            this.l_new_name.Text = "New layer name";
+            l_new_name.AutoSize = true;
+            l_new_name.Location = new Point(88, 27);
+            l_new_name.Name = "l_new_name";
+            l_new_name.Size = new Size(92, 15);
+            l_new_name.TabIndex = 3;
+            l_new_name.Text = "New layer name";
             // 
             // Rename
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(277, 218);
-            Controls.Add(this.l_new_name);
-            Controls.Add(this.b_cancel);
-            Controls.Add(this.b_ok);
-            Controls.Add(this.tb_rename_layer);
+            ClientSize = new Size(271, 184);
+            Controls.Add(l_new_name);
+            Controls.Add(b_cancel);
+            Controls.Add(b_ok);
+            Controls.Add(tb_rename_layer);
             Name = "Rename";
             Text = "Rename";
             ResumeLayout(false);

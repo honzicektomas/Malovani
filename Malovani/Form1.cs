@@ -8,6 +8,9 @@ namespace Malovani
         private Picture picture = new Picture();
         private Color Color1 = Color.LightGreen;
         private Color Color2 = Color.Blue;
+        private GradientType gt;
+        private string openFilePath;
+        private string saveFilePath;
 
         private bool mouse_down = false;
         private int button_index = 0;
@@ -21,6 +24,22 @@ namespace Malovani
             InitializeComponent();
             this.HandleButtonColors();
             this.InitLayer();
+            this.InitCmbGradients();
+
+
+            this.BackColor = Color.LightGray;
+            this.pictureBox1.BackColor = Color.Black;
+            this.tb_transparency.BackColor = Color.LightGray;
+            this.t_pen_width.Text = "3";
+            this.tb_transparency.Value = 255;
+        }
+
+        private void InitCmbGradients()
+        {
+            this.cmb_gradients.Hide();
+            this.cmb_gradients.Items.Add("Horizontal");
+            this.cmb_gradients.Items.Add("Vertical");
+            this.cmb_gradients.Items.Add("Diagonal");
         }
 
         private void InitLayer()
@@ -32,10 +51,12 @@ namespace Malovani
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
+            this.Invalidate();
             this.picture.Draw(e.Graphics);
+            
         }
 
-        private void pb_menu_bg_Paint(object sender, PaintEventArgs e)
+        private void pb_MenuBgPaint(object sender, PaintEventArgs e)
         {
             this.pb_menu_bg.BackColor = Color.LightGray;
         }
@@ -62,7 +83,8 @@ namespace Malovani
         {
             if (this.lb_layers.Items.Count == 0)
             {
-                MessageBox.Show("You can't draw without a layer!\n A new layer has been created.");
+                MessageBox.Show("You can't draw without a layer!" +
+                                "\n A new layer has been created.");
                 this.InitLayer();
                 return;
             }
@@ -81,7 +103,9 @@ namespace Malovani
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
                             this.cb_gradient.Checked,
-                            active_layer
+                            this.active_layer,
+                            this.tb_transparency.Value,
+                            gt
                         );
                     break;
 
@@ -95,7 +119,9 @@ namespace Malovani
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
                             this.cb_gradient.Checked,
-                            active_layer
+                            this.active_layer,
+                            this.tb_transparency.Value,
+                            gt
                         );
                     break;
 
@@ -109,7 +135,9 @@ namespace Malovani
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
                             this.cb_gradient.Checked,
-                            active_layer
+                            this.active_layer,
+                            this.tb_transparency.Value,
+                            gt
                         );
                     break;
 
@@ -123,7 +151,9 @@ namespace Malovani
                             this.textBoxCheck(),
                             this.cb_fill.Checked,
                             this.cb_gradient.Checked,
-                            active_layer
+                            this.active_layer,
+                            this.tb_transparency.Value,
+                            gt
                         );
                     break;
 
@@ -137,7 +167,9 @@ namespace Malovani
                             this.textBoxCheck() * 5,
                             this.cb_fill.Checked,
                             this.cb_gradient.Checked,
-                            active_layer
+                            this.active_layer,
+                            this.tb_transparency.Value,
+                            gt
                         );
                     break;
             }
@@ -156,7 +188,8 @@ namespace Malovani
                 this.pictureBox1.Refresh();
             }
         }
-        private void b_color1_Click(object sender, EventArgs e)
+
+        private void b_Color1Click(object sender, EventArgs e)
         {
             ColorDialog cld = new ColorDialog();
 
@@ -165,13 +198,6 @@ namespace Malovani
                 this.Color1 = cld.Color;
             }
             this.HandleButtonColors();
-        }
-
-
-        private void b_clear_Click(object sender, EventArgs e)
-        {
-            this.picture.Clear();
-            this.pictureBox1.Refresh();
         }
 
         private void b_color2_Click(object sender, EventArgs e)
@@ -185,41 +211,53 @@ namespace Malovani
             this.HandleButtonColors();
         }
 
-        private void b_eraser_Click(object sender, EventArgs e)
+        private void b_ClearClick(object sender, EventArgs e)
+        {
+            this.picture.Clear();
+            this.pictureBox1.Refresh();
+        }
+
+        private void b_EraserClick(object sender, EventArgs e)
         {
             this.button_index = (int)ShapeType.Eraser;
         }
 
-        private void cb_gradient_CheckedChanged(object sender, EventArgs e)
+        private void cb_GradientCheckedChanged(object sender, EventArgs e)
         {
             if (this.cb_gradient.Checked)
             {
                 this.cb_fill.Checked = true;
+                this.cmb_gradients.Show();
+
+            }
+            else
+            {
+                this.cmb_gradients.Hide();
             }
         }
 
-        private void b_add_layer_Click(object sender, EventArgs e)
+        private void b_AddLayerClick(object sender, EventArgs e)
         {
             this.lb_layers.Items.Add("Layer " + this.layer_counter);
             this.layer_counter++;
         }
 
-        private void lb_layers_SelectedIndexChanged(object sender, EventArgs e)
+        private void lb_LayersSelectedIndexChanged(object sender, EventArgs e)
         {
             this.active_layer = this.lb_layers.SelectedIndex;
             this.pictureBox1.Refresh();
         }
 
-        private void b_remove_layer_Click(object sender, EventArgs e)
+        private void b_RemoveLayerClick(object sender, EventArgs e)
         {
-            int selectedIndex = this.lb_layers.SelectedIndex;
-            if (selectedIndex >= 0)
+
+            if (active_layer >= 0)
             {
-                this.lb_layers.Items.RemoveAt(selectedIndex);
+                this.lb_layers.Items.RemoveAt(active_layer);
 
                 for (int i = 0; i < this.picture.shapes.Count; i++)
                 {
-                    if (this.picture.shapes[i].layer == selectedIndex)
+                    if (this.picture.shapes[i].layer == active_layer)
                     {
                         this.picture.shapes.RemoveAt(i);
                         i--;
@@ -228,24 +266,23 @@ namespace Malovani
 
                 for (int i = 0; i < this.picture.shapes.Count; i++)
                 {
-                    if (this.picture.shapes[i].layer > selectedIndex)
+                    if (this.picture.shapes[i].layer > active_layer)
                     {
                         this.picture.shapes[i].layer--;
                     }
                 }
-
                 this.pictureBox1.Refresh();
             }
+
         }
 
         private void AdjustLayer(bool up)
         {
-            int selectedIndex = lb_layers.SelectedIndex;
+            int selectedIndex = this.lb_layers.SelectedIndex;
             int target_index;
 
             if (selectedIndex >= 0 && selectedIndex < lb_layers.Items.Count)
             {
-
                 if (up)
                 {
                     target_index = selectedIndex - 1;
@@ -266,9 +303,13 @@ namespace Malovani
                     foreach (Shape shape in picture.shapes)
                     {
                         if (shape.layer == selectedIndex)
+                        {
                             shape.layer = target_index;
+                        }
                         else if (shape.layer == target_index)
+                        {
                             shape.layer = selectedIndex;
+                        }
                     }
 
                     pictureBox1.Refresh();
@@ -276,32 +317,25 @@ namespace Malovani
             }
         }
 
-        private void b_layer_up_Click(object sender, EventArgs e)
+        private void b_LayerUpClick(object sender, EventArgs e)
         {
             this.AdjustLayer(true);
         }
 
-        private void b_layer_down_Click(object sender, EventArgs e)
+        private void b_LayerDownClick(object sender, EventArgs e)
         {
             this.AdjustLayer(false);
         }
 
-        private void b_file_Click(object sender, EventArgs e)
+        private void b_FileClick(object sender, EventArgs e)
         {
             File file = new File();
 
             file.Show();
+
+            this.openFilePath = file.openFilePath;
+            this.saveFilePath = file.saveFilePath;
         }
-
-        private void b_swap_colors_Click(object sender, EventArgs e)
-        {
-            Color temp = this.Color2;
-
-            this.Color2 = this.Color1;
-            this.Color1 = temp;
-            this.HandleButtonColors();
-        }
-
         private void HandleButtonColors()
         {
             this.b_color1.BackColor = this.Color1;
@@ -310,27 +344,36 @@ namespace Malovani
             this.b_color2.ForeColor = this.Color2;
         }
 
-        private void b_cara_Click(object sender, EventArgs e)
+        private void b_SwapColorsClick(object sender, EventArgs e)
+        {
+            Color temp = this.Color2;
+            this.Color2 = this.Color1;
+            this.Color1 = temp;
+
+            this.HandleButtonColors();
+        }
+
+        private void b_LineClick(object sender, EventArgs e)
         {
             this.button_index = (int)ShapeType.Line;
         }
 
-        private void b_ctverec_Click(object sender, EventArgs e)
+        private void b_RectangleClick(object sender, EventArgs e)
         {
             this.button_index = (int)ShapeType.Rectangle;
         }
 
-        private void b_elipsa_Click(object sender, EventArgs e)
+        private void b_EllipseClick(object sender, EventArgs e)
         {
             this.button_index = (int)ShapeType.Ellipse;
         }
 
-        private void b_body_Click(object sender, EventArgs e)
+        private void b_PointsClick(object sender, EventArgs e)
         {
             this.button_index = (int)ShapeType.Points;
         }
 
-        private void b_rename_layer_Click(object sender, EventArgs e)
+        private void b_RenameLayerClick(object sender, EventArgs e)
         {
             Rename r = new Rename();
 
@@ -338,6 +381,32 @@ namespace Malovani
             {
                 this.lb_layers.Items[this.active_layer] = r.new_name;
             }
+        }
+
+        private void b_CanvasColorClick(object sender, EventArgs e)
+        {
+            ColorDialog cld = new ColorDialog();
+
+            if (cld.ShowDialog() == DialogResult.OK)
+            {
+                this.pictureBox1.BackColor = cld.Color;
+
+                foreach (Shape shape in this.picture.shapes)
+                {
+                    if (shape.ShapeType == ShapeType.Eraser)
+                    {
+                        shape.Color1 = cld.Color;
+                    }
+                }
+            }
+
+        }
+
+        private void cmb_gradients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.gt = (GradientType)this.cmb_gradients.SelectedIndex;
+
+            
         }
     }
 }

@@ -44,17 +44,19 @@ namespace WinFormsApp6
             //}
         }
 
-        public void CreateShape(Point p, Color color1, Color color2, ShapeType type, int pen_width, bool fill, bool grad, int layer)
+        public void CreateShape(Point P, Color Color1, Color Color2, ShapeType Type, int pen_width, bool fill, bool grad, int layer, int aplha, GradientType gt)
         {
-            Shape shape = new Shape(type, fill, layer)
+            Shape shape = new Shape(Type, fill, layer)
             {
-                Start = p,
-                Color1 = color1,
+                Start = P,
+                Color1 = Color1,
                 pen_width = pen_width,
-                Color2 = color2,
+                Color2 = Color2,
                 fill = fill,
                 grad = grad,
-                layer = layer
+                layer = layer,
+                alpha = aplha,
+                GradientType = gt
             };
             this.shapes.Add(shape);
         }
@@ -63,7 +65,7 @@ namespace WinFormsApp6
         {
             this.shapes.Last().End = point;
 
-            if (this.shapes.Last().Type == ShapeType.Points || this.shapes.Last().Type == ShapeType.Eraser)
+            if (this.shapes.Last().ShapeType == ShapeType.Points || this.shapes.Last().ShapeType == ShapeType.Eraser)
             {
                 this.shapes.Last().AddPoint(point);
             }

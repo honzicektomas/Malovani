@@ -37,7 +37,6 @@
             this.pb_menu_bg = new PictureBox();
             this.b_add_layer = new Button();
             this.b_remove_layer = new Button();
-            this.colorDialog1 = new ColorDialog();
             this.b_elipsa = new Button();
             this.b_body = new Button();
             this.b_clear = new Button();
@@ -52,8 +51,13 @@
             this.b_file = new Button();
             this.b_swap_colors = new Button();
             this.b_rename_layer = new Button();
+            this.tb_transparency = new TrackBar();
+            this.b_CanvasColor = new Button();
+            this.l_transparency = new Label();
+            this.cmb_gradients = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)this.pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)this.pb_menu_bg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)this.tb_transparency).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -77,7 +81,7 @@
             this.lb_layers.Name = "lb_layers";
             this.lb_layers.Size = new Size(145, 424);
             this.lb_layers.TabIndex = 1;
-            this.lb_layers.SelectedIndexChanged += lb_layers_SelectedIndexChanged;
+            this.lb_layers.SelectedIndexChanged += lb_LayersSelectedIndexChanged;
             // 
             // l_layers
             // 
@@ -96,7 +100,7 @@
             this.b_color1.TabIndex = 3;
             this.b_color1.Text = "Color1";
             this.b_color1.UseVisualStyleBackColor = true;
-            this.b_color1.Click += b_color1_Click;
+            this.b_color1.Click += b_Color1Click;
             // 
             // b_ctverec
             // 
@@ -106,7 +110,7 @@
             this.b_ctverec.TabIndex = 4;
             this.b_ctverec.Text = "Square";
             this.b_ctverec.UseVisualStyleBackColor = true;
-            this.b_ctverec.Click += b_ctverec_Click;
+            this.b_ctverec.Click += b_RectangleClick;
             // 
             // b_cara
             // 
@@ -114,9 +118,9 @@
             this.b_cara.Name = "b_cara";
             this.b_cara.Size = new Size(75, 55);
             this.b_cara.TabIndex = 5;
-            this.b_cara.Text = "Line";
+            this.b_cara.Text = "StrLine";
             this.b_cara.UseVisualStyleBackColor = true;
-            this.b_cara.Click += b_cara_Click;
+            this.b_cara.Click += b_LineClick;
             // 
             // pb_menu_bg
             // 
@@ -126,7 +130,7 @@
             this.pb_menu_bg.Size = new Size(929, 111);
             this.pb_menu_bg.TabIndex = 6;
             this.pb_menu_bg.TabStop = false;
-            this.pb_menu_bg.Paint += pb_menu_bg_Paint;
+            this.pb_menu_bg.Paint += pb_MenuBgPaint;
             // 
             // b_add_layer
             // 
@@ -136,7 +140,7 @@
             this.b_add_layer.TabIndex = 7;
             this.b_add_layer.Text = "Add Layer";
             this.b_add_layer.UseVisualStyleBackColor = true;
-            this.b_add_layer.Click += b_add_layer_Click;
+            this.b_add_layer.Click += b_AddLayerClick;
             // 
             // b_remove_layer
             // 
@@ -146,7 +150,7 @@
             this.b_remove_layer.TabIndex = 8;
             this.b_remove_layer.Text = "Remove Layer";
             this.b_remove_layer.UseVisualStyleBackColor = true;
-            this.b_remove_layer.Click += b_remove_layer_Click;
+            this.b_remove_layer.Click += b_RemoveLayerClick;
             // 
             // b_elipsa
             // 
@@ -156,7 +160,7 @@
             this.b_elipsa.TabIndex = 9;
             this.b_elipsa.Text = "Ellipse";
             this.b_elipsa.UseVisualStyleBackColor = true;
-            this.b_elipsa.Click += b_elipsa_Click;
+            this.b_elipsa.Click += b_EllipseClick;
             // 
             // b_body
             // 
@@ -164,9 +168,9 @@
             this.b_body.Name = "b_body";
             this.b_body.Size = new Size(70, 55);
             this.b_body.TabIndex = 10;
-            this.b_body.Text = "Points";
+            this.b_body.Text = "Line";
             this.b_body.UseVisualStyleBackColor = true;
-            this.b_body.Click += b_body_Click;
+            this.b_body.Click += b_PointsClick;
             // 
             // b_clear
             // 
@@ -176,7 +180,7 @@
             this.b_clear.TabIndex = 11;
             this.b_clear.Text = "Clear";
             this.b_clear.UseVisualStyleBackColor = true;
-            this.b_clear.Click += b_clear_Click;
+            this.b_clear.Click += b_ClearClick;
             // 
             // t_pen_width
             // 
@@ -225,7 +229,7 @@
             this.cb_gradient.TabIndex = 16;
             this.cb_gradient.Text = "Grad";
             this.cb_gradient.UseVisualStyleBackColor = true;
-            this.cb_gradient.CheckedChanged += cb_gradient_CheckedChanged;
+            this.cb_gradient.CheckedChanged += cb_GradientCheckedChanged;
             // 
             // b_eraser
             // 
@@ -235,7 +239,7 @@
             this.b_eraser.TabIndex = 18;
             this.b_eraser.Text = "Eraser";
             this.b_eraser.UseVisualStyleBackColor = true;
-            this.b_eraser.Click += b_eraser_Click;
+            this.b_eraser.Click += b_EraserClick;
             // 
             // b_layer_up
             // 
@@ -245,7 +249,7 @@
             this.b_layer_up.TabIndex = 19;
             this.b_layer_up.Text = "↑";
             this.b_layer_up.UseVisualStyleBackColor = true;
-            this.b_layer_up.Click += b_layer_up_Click;
+            this.b_layer_up.Click += b_LayerUpClick;
             // 
             // b_layer_down
             // 
@@ -255,7 +259,7 @@
             this.b_layer_down.TabIndex = 20;
             this.b_layer_down.Text = "↓";
             this.b_layer_down.UseVisualStyleBackColor = true;
-            this.b_layer_down.Click += b_layer_down_Click;
+            this.b_layer_down.Click += b_LayerDownClick;
             // 
             // b_file
             // 
@@ -265,17 +269,17 @@
             this.b_file.TabIndex = 21;
             this.b_file.Text = "File";
             this.b_file.UseVisualStyleBackColor = true;
-            this.b_file.Click += b_file_Click;
+            this.b_file.Click += b_FileClick;
             // 
             // b_swap_colors
             // 
-            this.b_swap_colors.Location = new Point(607, 69);
+            this.b_swap_colors.Location = new Point(608, 67);
             this.b_swap_colors.Name = "b_swap_colors";
             this.b_swap_colors.Size = new Size(25, 23);
             this.b_swap_colors.TabIndex = 22;
             this.b_swap_colors.Text = "↺";
             this.b_swap_colors.UseVisualStyleBackColor = true;
-            this.b_swap_colors.Click += b_swap_colors_Click;
+            this.b_swap_colors.Click += b_SwapColorsClick;
             // 
             // b_rename_layer
             // 
@@ -285,13 +289,56 @@
             this.b_rename_layer.TabIndex = 23;
             this.b_rename_layer.Text = "Rename Layer";
             this.b_rename_layer.UseVisualStyleBackColor = true;
-            this.b_rename_layer.Click += b_rename_layer_Click;
+            this.b_rename_layer.Click += b_RenameLayerClick;
+            // 
+            // tb_transparency
+            // 
+            this.tb_transparency.BackColor = SystemColors.Control;
+            this.tb_transparency.Location = new Point(425, 38);
+            this.tb_transparency.Maximum = 255;
+            this.tb_transparency.Name = "tb_transparency";
+            this.tb_transparency.Size = new Size(81, 45);
+            this.tb_transparency.TabIndex = 24;
+            this.tb_transparency.TickFrequency = 0;
+            this.tb_transparency.TickStyle = TickStyle.None;
+            // 
+            // b_CanvasColor
+            // 
+            this.b_CanvasColor.Location = new Point(839, 82);
+            this.b_CanvasColor.Name = "b_CanvasColor";
+            this.b_CanvasColor.Size = new Size(73, 23);
+            this.b_CanvasColor.TabIndex = 25;
+            this.b_CanvasColor.Text = "Canvas";
+            this.b_CanvasColor.UseVisualStyleBackColor = true;
+            this.b_CanvasColor.Click += b_CanvasColorClick;
+            // 
+            // l_transparency
+            // 
+            this.l_transparency.AutoSize = true;
+            this.l_transparency.Location = new Point(446, 21);
+            this.l_transparency.Name = "l_transparency";
+            this.l_transparency.Size = new Size(48, 15);
+            this.l_transparency.TabIndex = 26;
+            this.l_transparency.Text = "Opacity";
+            // 
+            // cmb_gradients
+            // 
+            this.cmb_gradients.FormattingEnabled = true;
+            this.cmb_gradients.Location = new Point(118, 95);
+            this.cmb_gradients.Name = "cmb_gradients";
+            this.cmb_gradients.Size = new Size(121, 23);
+            this.cmb_gradients.TabIndex = 27;
+            this.cmb_gradients.SelectedIndexChanged += cmb_gradients_SelectedIndexChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1107, 622);
+            Controls.Add(this.cmb_gradients);
+            Controls.Add(this.l_transparency);
+            Controls.Add(this.b_CanvasColor);
+            Controls.Add(this.tb_transparency);
             Controls.Add(this.b_rename_layer);
             Controls.Add(this.b_swap_colors);
             Controls.Add(this.b_file);
@@ -319,6 +366,7 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)this.pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)this.pb_menu_bg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)this.tb_transparency).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -334,7 +382,6 @@
         private PictureBox pb_menu_bg;
         private Button b_add_layer;
         private Button b_remove_layer;
-        private ColorDialog colorDialog1;
         private Button b_elipsa;
         private Button b_body;
         private Button b_clear;
@@ -349,5 +396,9 @@
         private Button b_file;
         private Button b_swap_colors;
         private Button b_rename_layer;
+        private TrackBar tb_transparency;
+        private Button b_CanvasColor;
+        private Label l_transparency;
+        private ComboBox cmb_gradients;
     }
 }

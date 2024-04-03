@@ -12,6 +12,8 @@ namespace Malovani
 {
     public partial class File : Form
     {
+        public string saveFilePath;
+        public string openFilePath;
         public File()
         {
             InitializeComponent();
@@ -29,7 +31,7 @@ namespace Malovani
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string filePath = saveFileDialog.FileName;
+                saveFilePath = saveFileDialog.FileName;
             }
         }
 
@@ -45,7 +47,7 @@ namespace Malovani
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-
+                this.openFilePath = openFileDialog.FileName;
             }
         }
     }

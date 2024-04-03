@@ -28,37 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.b_save_as = new Button();
-            this.b_open = new Button();
+            b_save_as = new Button();
+            b_open = new Button();
             SuspendLayout();
             // 
             // b_save_as
             // 
-            this.b_save_as.Location = new Point(47, 23);
-            this.b_save_as.Name = "b_save_as";
-            this.b_save_as.Size = new Size(75, 23);
-            this.b_save_as.TabIndex = 0;
-            this.b_save_as.Text = "Save As";
-            this.b_save_as.UseVisualStyleBackColor = true;
-            this.b_save_as.Click += b_save_as_Click;
+            b_save_as.Location = new Point(47, 23);
+            b_save_as.Name = "b_save_as";
+            b_save_as.Size = new Size(75, 23);
+            b_save_as.TabIndex = 0;
+            b_save_as.Text = "Save As";
+            b_save_as.UseVisualStyleBackColor = true;
+            b_save_as.Click += b_save_as_Click;
             // 
             // b_open
             // 
-            this.b_open.Location = new Point(128, 23);
-            this.b_open.Name = "b_open";
-            this.b_open.Size = new Size(75, 23);
-            this.b_open.TabIndex = 1;
-            this.b_open.Text = "Open";
-            this.b_open.UseVisualStyleBackColor = true;
-            this.b_open.Click += b_open_Click;
+            b_open.Location = new Point(128, 23);
+            b_open.Name = "b_open";
+            b_open.Size = new Size(75, 23);
+            b_open.TabIndex = 1;
+            b_open.Text = "Open";
+            b_open.UseVisualStyleBackColor = true;
+            b_open.Click += b_open_Click;
             // 
             // File
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(481, 362);
-            Controls.Add(this.b_open);
-            Controls.Add(this.b_save_as);
+            ClientSize = new Size(281, 105);
+            Controls.Add(b_open);
+            Controls.Add(b_save_as);
             Name = "File";
             Text = "File";
             ResumeLayout(false);
