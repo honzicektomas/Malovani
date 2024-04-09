@@ -67,6 +67,8 @@ namespace Malovani
             {
                 return;
             }
+
+            
             
             LinearGradientBrush lgb = null;
 
