@@ -5,6 +5,7 @@ namespace Malovani
 {
     public class Shape
     {
+
         public Point Start { get; set; }
 
         public Point End { get; set; }
