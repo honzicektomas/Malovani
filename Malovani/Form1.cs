@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic.Devices;
 using System.Runtime.CompilerServices;
 using WinFormsApp6;
 
@@ -28,7 +29,7 @@ namespace Malovani
 
 
             this.BackColor = Color.LightGray;
-            this.pictureBox1.BackColor = Color.Black;
+            this.pictureBox1.BackColor = Color.White;
             this.tb_transparency.BackColor = Color.LightGray;
             this.t_pen_width.Text = "3";
             this.tb_transparency.Value = 255;
@@ -51,9 +52,9 @@ namespace Malovani
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            this.Invalidate();
             this.picture.Draw(e.Graphics);
-            
+            this.picture.select.DrawRect(e.Graphics);
+            this.Invalidate();
         }
 
         private void pb_MenuBgPaint(object sender, PaintEventArgs e)
@@ -90,6 +91,11 @@ namespace Malovani
             }
 
             this.mouse_down = true;
+
+            if (this.skd())
+            {
+                this.picture.select.Start = e.Location;
+            }
 
             switch (this.button_index)
             {
@@ -175,18 +181,39 @@ namespace Malovani
             }
         }
 
+        private bool skd()
+        {
+            return new Keyboard().ShiftKeyDown;
+        }
+
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             this.mouse_down = false;
+            //this.picture.select.rect = Rectangle.Empty;
+            this.UpdateRemovedShapes();
+            
+        }
+        private void UpdateRemovedShapes()
+        {
+            this.picture.select.RemoveShapes(this.picture.shapes);
+            this.picture.select.Start = Point.Empty; // Reset Start point
+            this.picture.select.End = Point.Empty;
+            this.pictureBox1.Refresh();
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (this.mouse_down)
+            if (this.mouse_down && new Keyboard().ShiftKeyDown)
+            {
+                this.picture.select.End = e.Location;
+                
+            }
+            else if  (this.mouse_down)
             {
                 this.picture.AddPoint(e.Location);
-                this.pictureBox1.Refresh();
+                
             }
+            this.pictureBox1.Refresh();
         }
 
         private void b_Color1Click(object sender, EventArgs e)

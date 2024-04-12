@@ -19,7 +19,6 @@ namespace Malovani
         public bool fill {  get; set; }
         public bool grad { get; set; }
         public double alpha { get; set; }
-        
 
 
         public Shape(ShapeType Type, bool fill, int layer)
@@ -45,8 +44,6 @@ namespace Malovani
             }
         }
 
-        
-
         public void Draw(Graphics g)
         {
             Color primary = Color.FromArgb((int)alpha, Color1.R, Color1.G, Color1.B);
@@ -58,9 +55,10 @@ namespace Malovani
             int x = Math.Min(this.Start.X, this.End.X);
             int y = Math.Min(this.Start.Y, this.End.Y);
 
-            Pen pen = new Pen(primary);
+            Pen pen = new Pen(primary, pen_width);
             Brush brush = new SolidBrush(primary);
 
+            
 
             Blend blend = new Blend();
 

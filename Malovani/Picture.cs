@@ -5,6 +5,7 @@ namespace WinFormsApp6
     public class Picture
     {
         public List<Shape> shapes = new List<Shape>();
+        public Select select = new Select();
 
         public void Clear()
         {
@@ -38,10 +39,6 @@ namespace WinFormsApp6
             {
                 shape.Draw(g);
             }
-            //foreach (Shape shape in this.shapes.OrderBy(s => s.layer))
-            //{
-            //    shape.Draw(g);
-            //}
         }
 
         public void CreateShape(Point P, Color Color1, Color Color2, ShapeType Type, int pen_width, bool fill, bool grad, int layer, int aplha, GradientType gt)
@@ -61,8 +58,13 @@ namespace WinFormsApp6
             this.shapes.Add(shape);
         }
 
-        public void AddPoint(Point point)
+        public void AddPoint(Point point, bool is_shape=true)
         {
+            if (!is_shape)
+            {
+                this.select.End = point;
+                return;
+            }
             this.shapes.Last().End = point;
 
             if (this.shapes.Last().ShapeType == ShapeType.Points || this.shapes.Last().ShapeType == ShapeType.Eraser)
